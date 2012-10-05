@@ -1,21 +1,31 @@
-var maxId = 1,
-    $target = $('#tweets'),
-    hashtag = '%23dataforcities';
+var $target = $('#tweets'),
+    tweetIds = [],
+    hashtag = 'sxsweco'; // '%23dataforcities';
 
 var fetch = function(hashtag) {
-  $.getJSON('http://search.twitter.com/search.json?q='+hashtag+'&result_type=recent&callback=?',
+  var url = 'http://search.twitter.com/search.json?q='+hashtag+'&result_type=recent&rpp=5&show_user=true&callback=?';
+
+  $.getJSON(url,
     function(data){
-      maxId = data.max_id;
+      // console.log(data);
+      var added = 0;
 
       if (data.results.length) {
-        $.each(data.results, function(i, result){
-          $target.append('<div class="item well">' + result.text + '</div>');
-        });
+        $.each(data.results, function(i, result) {
+          var active = '';
+          if (tweetIds.indexOf(result.id) < 0) {
+            if ($target.children().length === 0) {
+              active = ' active';
+            }
+            $target.append('<div class="item well'+active+'"><small>@'+result.from_user + ' says:</small><br><strong>' + result.text + '</strong></div>');
 
-        $('.carousel').carousel({
-          interval: 10000
+            tweetIds.push(result.id);
+            added++;
+          }
         });
       }
+
+      // console.log('added', added);
     }
   );
 };
@@ -25,4 +35,7 @@ setInterval(function(){
   fetch(hashtag);
 }, 10000);
 
+$('.carousel').carousel({
+  interval: 10000
+});
 

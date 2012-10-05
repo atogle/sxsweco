@@ -1,6 +1,6 @@
 var $target = $('#tweets'),
     tweetIds = [],
-    hashtag = '%23dataforcities';
+    hashtag = '%23sxswcitydata';
 
 var fetch = function(hashtag) {
   var url = 'http://search.twitter.com/search.json?q='+hashtag+'&result_type=recent&rpp=5&show_user=true&callback=?';
@@ -33,9 +33,9 @@ var fetch = function(hashtag) {
 fetch(hashtag);
 setInterval(function(){
   fetch(hashtag);
-}, 10000);
+}, 6000);
 
 $('.carousel').carousel({
-  interval: 10000
+  interval: 6000
 });
 

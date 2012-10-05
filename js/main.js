@@ -3,12 +3,9 @@ var maxId = 1,
     hashtag = '%23dataforcities';
 
 var fetch = function(hashtag) {
-  console.log(maxId);
   $.getJSON('http://search.twitter.com/search.json?q='+hashtag+'&result_type=recent&callback=?',
     function(data){
       maxId = data.max_id;
-
-      console.log(data);
 
       if (data.results.length) {
         $.each(data.results, function(i, result){
@@ -19,9 +16,6 @@ var fetch = function(hashtag) {
           interval: 10000
         });
       }
-
-      console.log('added', data.results.length, 'results');
-
     }
   );
 };

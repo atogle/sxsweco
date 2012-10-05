@@ -1,6 +1,6 @@
 var $target = $('#tweets'),
     tweetIds = [],
-    hashtag = 'sxsweco'; // '%23dataforcities';
+    hashtag = '%23dataforcities';
 
 var fetch = function(hashtag) {
   var url = 'http://search.twitter.com/search.json?q='+hashtag+'&result_type=recent&rpp=5&show_user=true&callback=?';
